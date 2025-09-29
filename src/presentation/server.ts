@@ -1,4 +1,5 @@
 import express, { Router } from 'express';
+import compression from 'compression';
 import path from 'path';
 
 interface Options{
@@ -26,6 +27,7 @@ export class Server{
         //Middlwares
         this.app.use(express.json());//permite posts json (y como raw en general)
         this.app.use(express.urlencoded({extended:true}));//permite posts x-www-form-urlencoded
+        this.app.use(compression());
 
         //Public folders
         this.app.use(express.static(this.publicPath));
