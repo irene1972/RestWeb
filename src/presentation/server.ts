@@ -23,6 +23,16 @@ export class Server{
         //Public folders
         this.app.use(express.static(this.publicPath));
 
+        //Routes
+        this.app.get('/api/todos', (req, res) => {
+            return res.json([
+                {id:1, text:'Buy milk', createdAt:new Date()},
+                {id:2, text:'Buy butter', createdAt:null},
+                {id:3, text:'Buy beef', createdAt:new Date()}
+            ])
+        })
+
+        //SPA (Todas las rutas no definidas pasan por aquí)
         this.app.get('/{*splat}',async(req,res)=>{
 
             //console.log(req.url);
