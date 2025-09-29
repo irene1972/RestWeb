@@ -4,3 +4,7 @@
     ```
     npm run dev
     ```
+3. Para ejecutar la BD usar el comando:
+    ```
+    docker compose up -d
+    ``` 
