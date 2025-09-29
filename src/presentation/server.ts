@@ -23,6 +23,10 @@ export class Server{
 
     async start(){
 
+        //Middlwares
+        this.app.use(express.json());//permite posts json (y como row en general)
+        this.app.use(express.urlencoded({extended:true}));//permite posts x-www-form-urlencoded
+
         //Public folders
         this.app.use(express.static(this.publicPath));
 
