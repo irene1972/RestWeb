@@ -8,3 +8,8 @@
     ```
     docker compose up -d
     ``` 
+4. Para migrar la bd y que te genere la cadena POSTGRES_URL:
+    ```
+    PROD: prisma migrate deploy
+    DEV:  npx prisma migrate dev --name init
+    ```
