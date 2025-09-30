@@ -61,7 +61,7 @@ describe('routes.ts',()=>{
         const todoId=1;
         const {body}=await request(testServer.app)
         .get(`/api/todos/${todoId}`)
-        .expect(400);
+        .expect(404);
 
         //console.log('irene:',body);
         expect(body).toEqual({error: `Todo with id ${todoId} not found`});
@@ -141,7 +141,7 @@ describe('routes.ts',()=>{
         const {body}=await request(testServer.app)
             .put(`/api/todos/${todoId}`)
             .send({text:'Hola mundo updated',completedAt:'2025-10-29'})
-            .expect(400);
+            .expect(404);
 
         //console.log('irene:',body);
         expect(body).toEqual({ error: `Todo with id ${todoId} not found` });
@@ -195,7 +195,7 @@ describe('routes.ts',()=>{
         
         const {body}=await request(testServer.app)
             .delete(`/api/todos/${todoId}`)
-            .expect(400);
+            .expect(404);
 
         //console.log('irene:',body);
         
