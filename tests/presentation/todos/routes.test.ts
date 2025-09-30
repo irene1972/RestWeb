@@ -29,7 +29,7 @@ describe('routes.ts',()=>{
         .get('/api/todos')
         .expect(200);
 
-        console.log(body);
+        //console.log(body);
         expect(body).toBeInstanceOf(Array);
         expect(body.length).toBe(2);
         expect(body[0].text).toBe(todo1.text);
@@ -65,6 +65,46 @@ describe('routes.ts',()=>{
 
         //console.log('irene:',body);
         expect(body).toEqual({error: `Todo with id ${todoId} not found`});
+
+    });
+
+    test('should return a new Todo api/todos',async()=>{
+
+        const {body}=await request(testServer.app)
+            .post('/api/todos')
+            .send(todo1)
+            .expect(201);
+        
+        //console.log('irene:',body);
+        expect(body).toEqual({
+            id: expect.any(Number), 
+            text: todo1.text, 
+            completedAt: null
+        });
+
+    });
+
+    test('should return an error if text is not valid api/todos',async()=>{
+
+        const {body}=await request(testServer.app)
+            .post('/api/todos')
+            .send({})
+            .expect(400);
+        
+        console.log('irene:',body);
+        expect(body).toEqual({error: 'Text property is required'});
+
+    });
+
+    test('should return an error if text is empty api/todos',async()=>{
+
+        const {body}=await request(testServer.app)
+            .post('/api/todos')
+            .send({text:''})
+            .expect(400);
+        
+        console.log('irene:',body);
+        expect(body).toEqual({error: 'Text property is required'});
 
     });
 
