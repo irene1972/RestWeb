@@ -170,4 +170,38 @@ describe('routes.ts',()=>{
 
     });
 
+    test('should delete a Todo api/todos/:id',async()=>{
+
+        const todo=await prisma.todo.create({
+            data: todo1
+        })
+
+        const {body}=await request(testServer.app)
+            .delete(`/api/todos/${todo.id}`)
+            .expect(200);
+
+        //console.log('irene:',body);
+        expect(body).toEqual({
+            id: expect.any(Number), 
+            text: todo.text, 
+            completedAt: null
+        });
+
+    });
+
+    test('should return 404 if Todo do not exist api/todos/:id',async()=>{
+
+        const todoId=1;
+        
+        const {body}=await request(testServer.app)
+            .delete(`/api/todos/${todoId}`)
+            .expect(400);
+
+        //console.log('irene:',body);
+        
+        expect(body).toEqual({error: `Todo with id ${todoId} not found`});
+        
+
+    });
+
 });
